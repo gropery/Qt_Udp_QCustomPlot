@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Plot</class>
+ <widget class="QMainWindow" name="Plot">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>853</width>
+    <height>422</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="2">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>82</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QCheckBox" name="checkBoxXTrackAixs">
+          <property name="text">
+           <string> X轴自动跟随</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+          <property name="tristate">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QCheckBox" name="checkBoxYAutoScale">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonYAutoScale">
+            <property name="text">
+             <string>Y轴自适应</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="5">
+         <widget class="QSpinBox" name="spinBoxXTicks">
+          <property name="value">
+           <number>11</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>X Cur</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>X主刻度</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Y主刻度</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Y MAX</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QSpinBox" name="spinBoxYMax">
+          <property name="minimum">
+           <number>-100000</number>
+          </property>
+          <property name="maximum">
+           <number>100000</number>
+          </property>
+          <property name="singleStep">
+           <number>20</number>
+          </property>
+          <property name="value">
+           <number>200</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Y MIN</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QSpinBox" name="spinBoxXPoints">
+          <property name="maximum">
+           <number>200000</number>
+          </property>
+          <property name="singleStep">
+           <number>20</number>
+          </property>
+          <property name="value">
+           <number>1000</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="spinBoxYMin">
+          <property name="minimum">
+           <number>-100000</number>
+          </property>
+          <property name="maximum">
+           <number>100000</number>
+          </property>
+          <property name="singleStep">
+           <number>20</number>
+          </property>
+          <property name="value">
+           <number>-200</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="spinBoxXCurPos">
+          <property name="maximum">
+           <number>2000000000</number>
+          </property>
+          <property name="singleStep">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QSpinBox" name="spinBoxYTicks">
+          <property name="value">
+           <number>11</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>X Points</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBoxRangeZoom">
+        <property name="title">
+         <string>滚轮缩放</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="2">
+          <widget class="QRadioButton" name="radioButtonRangeZoomXY">
+           <property name="text">
+            <string>XY</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="radioButtonRangeZoomX">
+           <property name="text">
+            <string>X</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QRadioButton" name="radioButtonRangeZoomY">
+           <property name="text">
+            <string>Y</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBoxRangeDrag">
+        <property name="title">
+         <string>拖拽滑动</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="2">
+          <widget class="QRadioButton" name="radioButtonRangeDragXY">
+           <property name="text">
+            <string>XY</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="radioButtonRangeDragX">
+           <property name="text">
+            <string>X</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QRadioButton" name="radioButtonRangeDragY">
+           <property name="text">
+            <string>Y</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>291</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QCheckBox" name="checkBoxShowLegend">
+        <property name="text">
+         <string>显示图例</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonShowAllCurve">
+        <property name="text">
+         <string>显示所有曲线</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonClearAllCurve">
+        <property name="text">
+         <string>清屏所有曲线</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonStartPlot">
+        <property name="text">
+         <string>开始绘图</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonSavePng">
+        <property name="text">
+         <string>波形截图</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0" colspan="3">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,12">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QListWidget" name="listWidgetChannels">
+          <property name="currentRow">
+           <number>-1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>曲线设置</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QCheckBox" name="checkBoxCurveVisible">
+             <property name="text">
+              <string>可见</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxCurveBold">
+             <property name="text">
+              <string>加粗(不推荐)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonCurveColor">
+             <property name="text">
+              <string>颜色</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxCurveLineStyle">
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
+             <item>
+              <property name="text">
+               <string>点</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>线</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>左</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>右</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>中</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>积</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxCurveScatterStyle">
+             <item>
+              <property name="text">
+               <string>无散点</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssNone.png</normaloff>:/images/picScatterStyle/ssNone.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>点形</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssDisc.png</normaloff>:/images/picScatterStyle/ssDisc.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>x形</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssCross.png</normaloff>:/images/picScatterStyle/ssCross.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>+形</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssPlus.png</normaloff>:/images/picScatterStyle/ssPlus.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>空心圆</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssCircle.png</normaloff>:/images/picScatterStyle/ssCircle.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>实心圆</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssDisc.png</normaloff>:/images/picScatterStyle/ssDisc.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>矩形</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssSquare.png</normaloff>:/images/picScatterStyle/ssSquare.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>菱形</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssDiamond.png</normaloff>:/images/picScatterStyle/ssDiamond.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>星形</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssStar.png</normaloff>:/images/picScatterStyle/ssStar.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>正三角</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssTriangle.png</normaloff>:/images/picScatterStyle/ssTriangle.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>倒三角</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssTriangleInverted.png</normaloff>:/images/picScatterStyle/ssTriangleInverted.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>x框</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssCrossSquare.png</normaloff>:/images/picScatterStyle/ssCrossSquare.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>+框</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssPlusSquare.png</normaloff>:/images/picScatterStyle/ssPlusSquare.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>x圆</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssCrossCircle.png</normaloff>:/images/picScatterStyle/ssCrossCircle.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>+圆</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssPlusCircle.png</normaloff>:/images/picScatterStyle/ssPlusCircle.png</iconset>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>和平</string>
+              </property>
+              <property name="icon">
+               <iconset resource="res.qrc">
+                <normaloff>:/images/picScatterStyle/ssPeace.png</normaloff>:/images/picScatterStyle/ssPeace.png</iconset>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QCustomPlot" name="plot" native="true">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 127);</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="horizontalScrollBar">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>853</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header location="global">qcustomplot/qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

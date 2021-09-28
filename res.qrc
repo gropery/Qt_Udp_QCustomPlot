@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/picScatterStyle/ssCircle.png</file>
+        <file>images/picScatterStyle/ssCross.png</file>
+        <file>images/picScatterStyle/ssCrossCircle.png</file>
+        <file>images/picScatterStyle/ssCrossSquare.png</file>
+        <file>images/picScatterStyle/ssDiamond.png</file>
+        <file>images/picScatterStyle/ssDisc.png</file>
+        <file>images/picScatterStyle/ssNone.png</file>
+        <file>images/picScatterStyle/ssPeace.png</file>
+        <file>images/picScatterStyle/ssPlus.png</file>
+        <file>images/picScatterStyle/ssPlusCircle.png</file>
+        <file>images/picScatterStyle/ssPlusSquare.png</file>
+        <file>images/picScatterStyle/ssSquare.png</file>
+        <file>images/picScatterStyle/ssStar.png</file>
+        <file>images/picScatterStyle/ssTriangle.png</file>
+        <file>images/picScatterStyle/ssTriangleInverted.png</file>
+    </qresource>
+</RCC>

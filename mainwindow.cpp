@@ -95,9 +95,16 @@ void MainWindow::on_pushButtonBindPort_clicked()
         quint16 port=ui->spinBoxLocalPort->value(); //本机UDP端口
 
         if (udpSocket->bind(port)){
-            ui->pushButtonBindPort->setChecked(true);
-            ui->spinBoxLocalPort->setEnabled(false);
+            ui->pushButtonBindPort->setChecked(true);   //按下绑定按钮
+            ui->spinBoxLocalPort->setEnabled(false);    //屏蔽本地端口
+            ui->comboBoxTargetIP->setEnabled(false);    //屏蔽目标IP
+            ui->spinBoxTargetPort->setEnabled(false);   //屏蔽目标端口
             ui->pushButtonBindPort->setText("解除绑定");
+
+            QString targetIP = ui->comboBoxTargetIP->currentText();   //目标IP
+            QHostAddress targetAddr_tmp(targetIP);
+            targetAddr = targetAddr_tmp;
+            targetPort = ui->spinBoxTargetPort->value();              //目标port
 
             if(ui->actionSaveCsv->isChecked()){
                 //以当前日期时间戳创建CSV文件
@@ -109,8 +116,10 @@ void MainWindow::on_pushButtonBindPort_clicked()
     }
     else{
         udpSocket->abort();
-        ui->pushButtonBindPort->setChecked(false);
-        ui->spinBoxLocalPort->setEnabled(true);
+        ui->pushButtonBindPort->setChecked(false);  //释放绑定按钮
+        ui->spinBoxLocalPort->setEnabled(true);     //使能本地端口
+        ui->comboBoxTargetIP->setEnabled(true);     //使能目标IP
+        ui->spinBoxTargetPort->setEnabled(true);    //使能目标端口
         ui->pushButtonBindPort->setText("绑定端口");
 
         if(ui->actionSaveCsv->isChecked()){
@@ -265,10 +274,6 @@ void MainWindow::on_pushButtonSingleSend_clicked()
         ba = QByteArray::fromHex(strSendData.toLocal8Bit());    // GB2312编码输出
     }
 
-    QString     targetIP=ui->comboBoxTargetIP->currentText(); //目标IP
-    QHostAddress    targetAddr(targetIP);
-    quint16     targetPort=ui->spinBoxTargetPort->value();    //目标port
-
     // 如发送成功，会返回发送的字节长度。失败，返回-1。
     qint64 ret = udpSocket->writeDatagram(ba,targetAddr,targetPort);      //发出数据报
 
@@ -328,10 +333,6 @@ void MainWindow::slot_pushButtonMultiSend_n_clicked()
     // 只16进制发送
     ba = QByteArray::fromHex(strSendData.toLocal8Bit());    // GB2312编码输出
 
-    QString     targetIP=ui->comboBoxTargetIP->currentText(); //目标IP
-    QHostAddress    targetAddr(targetIP);
-    quint16     targetPort=ui->spinBoxTargetPort->value();    //目标port
-
     // 如发送成功，会返回发送的字节长度。失败，返回-1。
     qint64 ret = udpSocket->writeDatagram(ba,targetAddr,targetPort);      //发出数据报
 
@@ -388,10 +389,6 @@ void MainWindow::slot_timerMultiSend_timeout()
 
     // 只16进制发送
     ba = QByteArray::fromHex(strSendData.toLocal8Bit());    // GB2312编码输出
-
-    QString     targetIP=ui->comboBoxTargetIP->currentText(); //目标IP
-    QHostAddress    targetAddr(targetIP);
-    quint16     targetPort=ui->spinBoxTargetPort->value();    //目标port
 
     // 如发送成功，会返回发送的字节长度。失败，返回-1。
     qint64 ret = udpSocket->writeDatagram(ba,targetAddr,targetPort);      //发出数据报
@@ -606,10 +603,6 @@ void MainWindow::slot_timerWaveGene_timeout()
 
     QByteArray ba;
     ba.append(0x3A).append(0x3B).append(0x01).append(0x02).append(y1).append(y2).append(crc);
-
-    QString     targetIP=ui->comboBoxTargetIP->currentText(); //目标IP
-    QHostAddress    targetAddr(targetIP);
-    quint16     targetPort=ui->spinBoxTargetPort->value();    //目标port
 
     // 如发送成功，会返回发送的字节长度。失败，返回-1。
     qint64 ret = udpSocket->writeDatagram(ba,targetAddr,targetPort);      //发出数据报

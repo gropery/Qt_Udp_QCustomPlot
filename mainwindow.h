@@ -70,8 +70,10 @@ private:
     //-----------------------
     // UDP
     QUdpSocket *udpSocket;
-    QHostAddress peerUdpAddr;
-    quint16 peerUdpPort;
+    QHostAddress peerUdpAddr;   //暂存对接的地址--暂未使用
+    quint16 peerUdpPort;        //暂存对接的端口--暂未使用
+    QHostAddress targetAddr;    //目标IP地址
+    quint16 targetPort;         //目标端口
 
     //-----------------------
     //发送接收数量，速率计算

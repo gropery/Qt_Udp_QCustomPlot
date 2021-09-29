@@ -7,10 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("Qt UdpRx Plot");
-    LabSocketState=new QLabel("Socket状态：");
-    LabSocketState->setMinimumWidth(200);
-    ui->statusbar->addWidget(LabSocketState);
+    setWindowTitle("Qt Udp Plot");
 
     connect(ui->pushButtonMultiSend_1,SIGNAL(clicked(bool)),this,SLOT(slot_pushButtonMultiSend_n_clicked()));
     connect(ui->pushButtonMultiSend_2,SIGNAL(clicked(bool)),this,SLOT(slot_pushButtonMultiSend_n_clicked()));
@@ -54,44 +51,101 @@ MainWindow::MainWindow(QWidget *parent)
     // 新建UDP socket
     udpSocket = new QUdpSocket(this);
     connect(udpSocket,SIGNAL(stateChanged(QAbstractSocket::SocketState)),this,SLOT(slot_udpSocket_stateChanged(QAbstractSocket::SocketState)));
-    slot_udpSocket_stateChanged(udpSocket->state());
+    slot_udpSocket_stateChanged(udpSocket->state());    //更新Socket状态
     connect(udpSocket,SIGNAL(readyRead()),this,SLOT(slot_udpSocket_readyRead()));
 
     // 新建波形显示界面
     plot = new Plot;
-//    plot->show();
+    plot->show();
 
     qDebug()<<"start..."<<endl;
 }
 
+// 显示本地所有IPv4地址
+void MainWindow::on_pushButtonShowLocalIp_clicked()
+{
+    QList<QNetworkInterface> list=QNetworkInterface::allInterfaces();
+    for(int i=0;i<list.count();i++)
+    {
+        QNetworkInterface aInterface=list.at(i);
+        if (!aInterface.isValid())
+           continue;
+
+        ui->plainTextEditRec->appendPlainText("设备名称："+aInterface.humanReadableName());
+        ui->plainTextEditRec->appendPlainText("硬件地址："+aInterface.hardwareAddress());
+        QList<QNetworkAddressEntry> entryList=aInterface.addressEntries();
+        for(int j=0;j<entryList.count();j++)
+        {
+            QNetworkAddressEntry aEntry=entryList.at(j);
+            if(!(aEntry.ip().protocol() == QAbstractSocket::IPv4Protocol))  //只打印IPv4
+                continue;
+
+            ui->plainTextEditRec->appendPlainText("   IP 地址："+aEntry.ip().toString());
+            ui->plainTextEditRec->appendPlainText("   子网掩码："+aEntry.netmask().toString());
+            ui->plainTextEditRec->appendPlainText("   广播地址："+aEntry.broadcast().toString()+"\n");
+        }
+        ui->plainTextEditRec->appendPlainText("\n");
+    }
+}
+
+// UDP绑定端口
+void MainWindow::on_pushButtonBindPort_clicked()
+{
+    if(ui->pushButtonBindPort->isChecked()){
+        quint16 port=ui->spinBoxLocalPort->value(); //本机UDP端口
+
+        if (udpSocket->bind(port)){
+            ui->pushButtonBindPort->setChecked(true);
+            ui->spinBoxLocalPort->setEnabled(false);
+            ui->pushButtonBindPort->setText("解除绑定");
+
+            if(ui->actionSaveCsv->isChecked()){
+                //以当前日期时间戳创建CSV文件
+                openCsvFile();
+            }
+            //串口使用过程中锁定保存按钮不可用
+            ui->actionSaveCsv->setEnabled(false);
+        }
+    }
+    else{
+        udpSocket->abort();
+        ui->pushButtonBindPort->setChecked(false);
+        ui->spinBoxLocalPort->setEnabled(true);
+        ui->pushButtonBindPort->setText("绑定端口");
+
+        if(ui->actionSaveCsv->isChecked()){
+            //关闭文件
+            closeCsvFile();
+        }
+        ui->actionSaveCsv->setEnabled(true);
+    }
+}
+
+//UDP 状态变化
 void MainWindow::slot_udpSocket_stateChanged(QAbstractSocket::SocketState socketState)
 {
     switch(socketState)
     {
         case QAbstractSocket::UnconnectedState:
-            LabSocketState->setText("scoket状态：UnconnectedState");
+            ui->labelSocketState->setText("scoket状态：UnconnectedState");
             break;
         case QAbstractSocket::HostLookupState:
-            LabSocketState->setText("scoket状态：HostLookupState");
+            ui->labelSocketState->setText("scoket状态：HostLookupState");
             break;
         case QAbstractSocket::ConnectingState:
-            LabSocketState->setText("scoket状态：ConnectingState");
+            ui->labelSocketState->setText("scoket状态：ConnectingState");
             break;
-
         case QAbstractSocket::ConnectedState:
-            LabSocketState->setText("scoket状态：ConnectedState");
+            ui->labelSocketState->setText("scoket状态：ConnectedState");
             break;
-
         case QAbstractSocket::BoundState:
-            LabSocketState->setText("scoket状态：BoundState");
+            ui->labelSocketState->setText("scoket状态：BoundState");
             break;
-
         case QAbstractSocket::ClosingState:
-            LabSocketState->setText("scoket状态：ClosingState");
+            ui->labelSocketState->setText("scoket状态：ClosingState");
             break;
-
         case QAbstractSocket::ListeningState:
-            LabSocketState->setText("scoket状态：ListeningState");
+            ui->labelSocketState->setText("scoket状态：ListeningState");
     }
 }
 
@@ -621,61 +675,4 @@ void MainWindow::saveCsvFile(QByteArray baRecvData)
     }
 }
 
-void MainWindow::on_pushButtonShowLocalIp_clicked()
-{
-    QList<QNetworkInterface> list=QNetworkInterface::allInterfaces();
-    for(int i=0;i<list.count();i++)
-    {
-        QNetworkInterface aInterface=list.at(i);
-        if (!aInterface.isValid())
-           continue;
 
-        ui->plainTextEditRec->appendPlainText("设备名称："+aInterface.humanReadableName());
-        ui->plainTextEditRec->appendPlainText("硬件地址："+aInterface.hardwareAddress());
-        QList<QNetworkAddressEntry> entryList=aInterface.addressEntries();
-        for(int j=0;j<entryList.count();j++)
-        {
-            QNetworkAddressEntry aEntry=entryList.at(j);
-            if(!(aEntry.ip().protocol() == QAbstractSocket::IPv4Protocol))  //只打印IPv4
-                continue;
-
-            ui->plainTextEditRec->appendPlainText("   IP 地址："+aEntry.ip().toString());
-            ui->plainTextEditRec->appendPlainText("   子网掩码："+aEntry.netmask().toString());
-            ui->plainTextEditRec->appendPlainText("   广播地址："+aEntry.broadcast().toString()+"\n");
-        }
-        ui->plainTextEditRec->appendPlainText("\n");
-    }
-}
-
-// UDP绑定端口
-void MainWindow::on_pushButtonBindPort_clicked()
-{
-    if(ui->pushButtonBindPort->isChecked()){
-        quint16 port=ui->spinBoxLocalPort->value(); //本机UDP端口
-
-        if (udpSocket->bind(port)){
-            ui->pushButtonBindPort->setChecked(true);
-            ui->spinBoxLocalPort->setEnabled(false);
-            ui->pushButtonBindPort->setText("解除绑定");
-
-            if(ui->actionSaveCsv->isChecked()){
-                //以当前日期时间戳创建CSV文件
-                openCsvFile();
-            }
-            //串口使用过程中锁定保存按钮不可用
-            ui->actionSaveCsv->setEnabled(false);
-        }
-    }
-    else{
-        udpSocket->abort();
-        ui->pushButtonBindPort->setChecked(false);
-        ui->spinBoxLocalPort->setEnabled(true);
-        ui->pushButtonBindPort->setText("绑定端口");
-
-        if(ui->actionSaveCsv->isChecked()){
-            //关闭文件
-            closeCsvFile();
-        }
-        ui->actionSaveCsv->setEnabled(true);
-    }
-}

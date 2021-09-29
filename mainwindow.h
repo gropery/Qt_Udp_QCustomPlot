@@ -33,6 +33,11 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_pushButtonShowLocalIp_clicked();        //显示本地所有IP地址
+    void on_pushButtonBindPort_clicked();           //绑定指定端口
+    void slot_udpSocket_readyRead();                //UDP 数据接收函数
+    void slot_udpSocket_stateChanged(QAbstractSocket::SocketState socketState); //UDP 状态变化
+
     void on_pushButtonClearRec_clicked();           //清除接收
     void on_pushButtonClearSend_clicked();          //清除发送
     void slot_timerUpdateLabel_timeout();           //统计数据更新定时器槽函数
@@ -53,13 +58,7 @@ private slots:
     void slot_timerWaveGene_timeout();                      //tab4 仿真波形定时器
     void on_checkBoxWaveGeneStart_stateChanged(int arg1);   //tab4 仿真波形开始
 
-    void on_actionPlotShow_triggered();     //显示Plot窗口
-
-    void on_pushButtonShowLocalIp_clicked();
-
-    void slot_udpSocket_readyRead();
-    void slot_udpSocket_stateChanged(QAbstractSocket::SocketState socketState);
-    void on_pushButtonBindPort_clicked();
+    void on_actionPlotShow_triggered();                     //显示Plot窗口
 
 private:
     void changeEncodeStrAndHex(QPlainTextEdit *plainTextEdit,int arg1); //切换字符编码与16进制
@@ -69,7 +68,12 @@ private:
     Ui::MainWindow *ui;
 
     //-----------------------
+    // UDP
+    QUdpSocket *udpSocket;
+    QHostAddress peerUdpAddr;
+    quint16 peerUdpPort;
 
+    //-----------------------
     //发送接收数量，速率计算
     long curSendNum=0;
     long curRecvNum=0;
@@ -115,12 +119,5 @@ private:
     void openCsvFile(void);
     void closeCsvFile(void);
     void saveCsvFile(QByteArray baRecvData);
-
-    QUdpSocket *udpSocket;
-    QLabel *LabSocketState;
-    QHostAddress    peerUdpAddr;
-    quint16 peerUdpPort;
-
-
 };
 #endif // MAINWINDOW_H

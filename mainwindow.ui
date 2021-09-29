@@ -41,6 +41,26 @@
                <string>UDP配置</string>
               </property>
               <layout class="QGridLayout" name="gridLayout">
+               <item row="3" column="1">
+                <widget class="QSpinBox" name="spinBoxTargetPort">
+                 <property name="maximum">
+                  <number>9999</number>
+                 </property>
+                 <property name="value">
+                  <number>1400</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QSpinBox" name="spinBoxLocalPort">
+                 <property name="maximum">
+                  <number>9999</number>
+                 </property>
+                 <property name="value">
+                  <number>1200</number>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="1">
                 <widget class="QPushButton" name="pushButtonBindPort">
                  <property name="text">
@@ -49,6 +69,25 @@
                  <property name="checkable">
                   <bool>true</bool>
                  </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>目标端口</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QComboBox" name="comboBoxTargetIP">
+                 <property name="editable">
+                  <bool>true</bool>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>127.0.0.1</string>
+                  </property>
+                 </item>
                 </widget>
                </item>
                <item row="2" column="0">
@@ -65,16 +104,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QSpinBox" name="spinBoxLocalPort">
-                 <property name="maximum">
-                  <number>9999</number>
-                 </property>
-                 <property name="value">
-                  <number>1200</number>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="0">
                 <widget class="QPushButton" name="pushButtonShowLocalIp">
                  <property name="text">
@@ -82,29 +111,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_5">
+               <item row="4" column="0" colspan="2">
+                <widget class="QLabel" name="labelSocketState">
                  <property name="text">
-                  <string>目标端口</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QComboBox" name="comboBoxTargetIP">
-                 <item>
-                  <property name="text">
-                   <string>127.0.0.1</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QSpinBox" name="spinBoxTargetPort">
-                 <property name="maximum">
-                  <number>9999</number>
-                 </property>
-                 <property name="value">
-                  <number>1400</number>
+                  <string>Socket状态:</string>
                  </property>
                 </widget>
                </item>
